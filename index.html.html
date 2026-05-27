@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Eszter 🩷</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #ff6eb4;
+    --hot-pink: #ff1493;
+    --rose: #ff4d8d;
+    --light-pink: #ffb3d9;
+    --pale: #fff0f7;
+    --red: #ff2d55;
+    --gold: #ffd700;
+    --cream: #fff5f9;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    min-height: 100%;
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: linear-gradient(135deg, #ff9ec4 0%, #ffb3d9 25%, #ff6eb4 50%, #ff4d8d 75%, #ff2d55 100%);
+    background-size: 400% 400%;
+    animation: bgShift 8s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @keyframes bgShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* === FLOATING HEARTS BACKGROUND === */
+  .hearts-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .heart-float {
+    position: absolute;
+    bottom: -60px;
+    font-size: 1.5rem;
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg) scale(0.5); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
+  }
+
+  /* === SCREENS === */
+  .screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 2rem 1.5rem;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+  }
+
+  .screen.active { display: flex; }
+
+  /* === CARD === */
+  .card {
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    border-radius: 36px;
+    padding: 2.5rem 2rem 2rem;
+    max-width: 480px;
+    width: 100%;
+    box-shadow:
+      0 0 0 4px rgba(255,110,180,0.3),
+      0 20px 60px rgba(255,45,85,0.3),
+      0 0 80px rgba(255,20,147,0.15);
+    animation: cardPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: conic-gradient(transparent 0deg, rgba(255,180,220,0.15) 60deg, transparent 120deg);
+    animation: shimmerSpin 4s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes shimmerSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes cardPop {
+    from { opacity: 0; transform: scale(0.5) translateY(40px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* === EMOJI HEADER === */
+  .emoji-big {
+    font-size: clamp(3.5rem, 15vw, 5rem);
+    margin-bottom: 0.5rem;
+    display: block;
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-12px) scale(1.1); }
+  }
+
+  /* === TYPOGRAPHY === */
+  h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(1.8rem, 7vw, 2.8rem);
+    color: var(--hot-pink);
+    line-height: 1.3;
+    margin-bottom: 0.8rem;
+    text-shadow: 2px 2px 0 rgba(255,110,180,0.3), 0 0 20px rgba(255,20,147,0.2);
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    color: #c2185b;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  /* === BUTTON === */
+  .btn-yes {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #ff6eb4, #ff1493, #ff2d55);
+    background-size: 200% 200%;
+    animation: btnGradient 2s ease infinite;
+    color: white;
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(1.3rem, 5vw, 1.7rem);
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow:
+      0 8px 24px rgba(255,20,147,0.5),
+      0 0 40px rgba(255,110,180,0.4),
+      inset 0 1px 0 rgba(255,255,255,0.3);
+    transition: transform 0.15s, box-shadow 0.15s;
+    min-width: 200px;
+    min-height: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-yes::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -60%;
+    width: 50%; height: 200%;
+    background: rgba(255,255,255,0.25);
+    transform: skewX(-20deg);
+    animation: btnShine 2.5s ease-in-out infinite;
+  }
+
+  @keyframes btnShine {
+    0%, 100% { left: -60%; }
+    50% { left: 120%; }
+  }
+
+  @keyframes btnGradient {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .btn-yes:hover, .btn-yes:active {
+    transform: scale(1.08) translateY(-3px);
+    box-shadow:
+      0 16px 40px rgba(255,20,147,0.6),
+      0 0 60px rgba(255,110,180,0.5),
+      inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+
+  .btn-yes:active { transform: scale(0.97); }
+
+  /* === DECORATIVE HEARTS AROUND CARD === */
+  .deco-hearts {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0;
+    pointer-events: none;
+  }
+
+  .deco-h {
+    position: absolute;
+    font-size: 1.4rem;
+    animation: decoFloat 3s ease-in-out infinite;
+  }
+
+  .deco-h:nth-child(1) { top: -10px; left: 10%; animation-delay: 0s; }
+  .deco-h:nth-child(2) { top: -10px; right: 12%; animation-delay: 0.4s; }
+  .deco-h:nth-child(3) { bottom: 10px; left: 8%; animation-delay: 0.8s; }
+  .deco-h:nth-child(4) { bottom: 10px; right: 10%; animation-delay: 1.2s; }
+
+  @keyframes decoFloat {
+    0%, 100% { transform: translateY(0) rotate(-10deg); }
+    50% { transform: translateY(-8px) rotate(10deg); }
+  }
+
+  /* === DIVIDER === */
+  .heart-divider {
+    color: var(--pink);
+    font-size: 1.2rem;
+    letter-spacing: 0.4rem;
+    margin: 1rem 0 1.5rem;
+    display: block;
+  }
+
+  /* === CONFETTI === */
+  .confetti-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .confetti-piece {
+    position: absolute;
+    top: -30px;
+    font-size: 1.4rem;
+    animation: confettiFall linear forwards;
+  }
+
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg) scale(0); opacity: 1; }
+    10% { transform: translateY(5vh) rotate(60deg) scale(1.2); }
+    100% { transform: translateY(110vh) rotate(720deg) scale(0.8); opacity: 0; }
+  }
+
+  /* === SCREEN TRANSITION === */
+  .fade-out {
+    animation: fadeOutUp 0.4s ease forwards !important;
+  }
+
+  @keyframes fadeOutUp {
+    to { opacity: 0; transform: scale(0.9) translateY(-20px); }
+  }
+
+  /* === HEART BURST === */
+  .heart-burst {
+    position: fixed;
+    pointer-events: none;
+    z-index: 200;
+    font-size: 1.8rem;
+    animation: burstOut 0.8s ease-out forwards;
+  }
+
+  @keyframes burstOut {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    60% { opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(1.5); opacity: 0; }
+  }
+
+  /* === FINAL SCREEN SPECIAL === */
+  .final-cat {
+    font-size: clamp(5rem, 25vw, 9rem);
+    display: block;
+    animation: catPulse 1.2s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255,110,180,0.6));
+    margin-bottom: 0.5rem;
+  }
+
+  @keyframes catPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .final-title {
+    font-family: 'Pacifico', cursive;
+    font-size: clamp(1.6rem, 7vw, 2.5rem);
+    color: var(--hot-pink);
+    text-shadow: 2px 2px 0 rgba(255,110,180,0.4), 0 0 30px rgba(255,20,147,0.3);
+    margin-bottom: 0.75rem;
+  }
+
+  .final-sub {
+    font-size: clamp(1.1rem, 4.5vw, 1.4rem);
+    color: #e91e8c;
+    font-weight: 700;
+  }
+
+  .pulse-hearts {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .pulse-h {
+    font-size: 1.8rem;
+    animation: pulseH 1s ease-in-out infinite;
+  }
+
+  .pulse-h:nth-child(1) { animation-delay: 0s; }
+  .pulse-h:nth-child(2) { animation-delay: 0.15s; }
+  .pulse-h:nth-child(3) { animation-delay: 0.3s; }
+  .pulse-h:nth-child(4) { animation-delay: 0.45s; }
+  .pulse-h:nth-child(5) { animation-delay: 0.6s; }
+
+  @keyframes pulseH {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.4); filter: drop-shadow(0 0 8px rgba(255,20,147,0.8)); }
+  }
+
+  /* === GLITTER OVERLAY === */
+  .glitter {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .glitter-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: glitterTwinkle ease-in-out infinite;
+  }
+
+  @keyframes glitterTwinkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 0.9; transform: scale(1); }
+  }
+
+  /* === SCREEN SPECIFIC === */
+  #screen1 .card { border: 3px solid rgba(255,110,180,0.4); }
+  #screen2 .card { border: 3px solid rgba(255,20,147,0.4); }
+  #screen3 .card { border: 3px solid rgba(255,45,85,0.4); }
+  #screen4 .card {
+    border: 4px solid var(--pink);
+    background: rgba(255,255,255,0.95);
+  }
+
+  /* === SPARKLE TEXT === */
+  .sparkle-text {
+    position: relative;
+    display: inline-block;
+  }
+
+  .sparkle-text::before, .sparkle-text::after {
+    content: '✨';
+    font-size: 1.2rem;
+    position: absolute;
+    top: -8px;
+  }
+  .sparkle-text::before { left: -20px; animation: sparkleFlip 1.5s ease-in-out infinite; }
+  .sparkle-text::after { right: -20px; animation: sparkleFlip 1.5s ease-in-out infinite 0.5s; }
+
+  @keyframes sparkleFlip {
+    0%, 100% { transform: rotate(0deg) scale(1); opacity: 1; }
+    50% { transform: rotate(180deg) scale(1.4); opacity: 0.6; }
+  }
+
+  @media (max-width: 400px) {
+    .card { padding: 2rem 1.2rem 1.8rem; border-radius: 28px; }
+    .btn-yes { min-width: 170px; }
+    .sparkle-text::before, .sparkle-text::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating hearts background -->
+<div class="hearts-bg" id="heartsContainer"></div>
+
+<!-- Glitter overlay -->
+<div class="glitter" id="glitterContainer"></div>
+
+<!-- Confetti container -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- ======================== SCREEN 1 ======================== -->
+<div class="screen active" id="screen1">
+  <div class="card">
+    <div class="deco-hearts">
+      <span class="deco-h">💖</span>
+      <span class="deco-h">💗</span>
+      <span class="deco-h">💕</span>
+      <span class="deco-h">🩷</span>
+    </div>
+    <span class="emoji-big">🩷</span>
+    <h1>Eszter</h1>
+    <span class="heart-divider">💖 💗 💖</span>
+    <p class="subtitle">Tetszem neked? 🥺</p>
+    <button class="btn-yes" onclick="nextScreen(1)">Igen 💖</button>
+  </div>
+</div>
+
+<!-- ======================== SCREEN 2 ======================== -->
+<div class="screen" id="screen2">
+  <div class="card">
+    <div class="deco-hearts">
+      <span class="deco-h">💘</span>
+      <span class="deco-h">💝</span>
+      <span class="deco-h">💞</span>
+      <span class="deco-h">💓</span>
+    </div>
+    <span class="emoji-big">🥺</span>
+    <h1 class="sparkle-text">Akkor…</h1>
+    <span class="heart-divider">🌸 💗 🌸</span>
+    <p class="subtitle">Eljönnél velem randira? 👉👈</p>
+    <button class="btn-yes" onclick="nextScreen(2)">Igen 💘</button>
+  </div>
+</div>
+
+<!-- ======================== SCREEN 3 ======================== -->
+<div class="screen" id="screen3">
+  <div class="card">
+    <div class="deco-hearts">
+      <span class="deco-h">🌸</span>
+      <span class="deco-h">💐</span>
+      <span class="deco-h">🌷</span>
+      <span class="deco-h">🌹</span>
+    </div>
+    <span class="emoji-big">🌸</span>
+    <h1>Már csak egy kérdés…</h1>
+    <span class="heart-divider">💕 🩷 💕</span>
+    <p class="subtitle">Most szombaton jó lenne? 🌸</p>
+    <button class="btn-yes" onclick="nextScreen(3)">Igen 🩷</button>
+  </div>
+</div>
+
+<!-- ======================== SCREEN 4 - FINAL ======================== -->
+<div class="screen" id="screen4">
+  <div class="card">
+    <span class="final-cat">🐱</span>
+    <p class="final-title">Akkor szombaton találkozunk! 💖</p>
+    <span class="heart-divider">💝 💗 💝</span>
+    <p class="final-sub">Már alig várom 🥰</p>
+    <div class="pulse-hearts">
+      <span class="pulse-h">💖</span>
+      <span class="pulse-h">💗</span>
+      <span class="pulse-h">💕</span>
+      <span class="pulse-h">💘</span>
+      <span class="pulse-h">🩷</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// === FLOATING HEARTS SETUP ===
+const heartsContainer = document.getElementById('heartsContainer');
+const heartEmojis = ['💖','💗','💕','🩷','💘','💝','💞','💓','🌸','✨'];
+
+function createFloatingHeart() {
+  const el = document.createElement('span');
+  el.className = 'heart-float';
+  el.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+  el.style.left = Math.random() * 100 + '%';
+  el.style.fontSize = (0.9 + Math.random() * 1.5) + 'rem';
+  const duration = 6 + Math.random() * 8;
+  el.style.animationDuration = duration + 's';
+  el.style.animationDelay = Math.random() * 5 + 's';
+  heartsContainer.appendChild(el);
+  setTimeout(() => el.remove(), (duration + 5) * 1000);
+}
+
+setInterval(createFloatingHeart, 400);
+for (let i = 0; i < 15; i++) {
+  setTimeout(createFloatingHeart, i * 200);
+}
+
+// === GLITTER SETUP ===
+const glitterContainer = document.getElementById('glitterContainer');
+
+function createGlitter() {
+  const el = document.createElement('div');
+  el.className = 'glitter-dot';
+  const size = 2 + Math.random() * 4;
+  el.style.width = size + 'px';
+  el.style.height = size + 'px';
+  el.style.left = Math.random() * 100 + '%';
+  el.style.top = Math.random() * 100 + '%';
+  const duration = 1.5 + Math.random() * 2;
+  el.style.animationDuration = duration + 's';
+  el.style.animationDelay = Math.random() * 3 + 's';
+  glitterContainer.appendChild(el);
+  setTimeout(() => el.remove(), (duration + 3) * 1000);
+}
+
+setInterval(createGlitter, 150);
+for (let i = 0; i < 40; i++) setTimeout(createGlitter, i * 80);
+
+// === CONFETTI ===
+const confettiEmojis = ['💖','💗','🩷','💘','🌸','✨','💝','🎉','💕','💞','⭐','🌟'];
+
+function shootConfetti(count = 35) {
+  const container = document.getElementById('confettiContainer');
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('span');
+    el.className = 'confetti-piece';
+    el.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+    el.style.left = (5 + Math.random() * 90) + '%';
+    el.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+    el.style.animationDelay = (Math.random() * 0.8) + 's';
+    el.style.fontSize = (0.9 + Math.random() * 1.2) + 'rem';
+    container.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+}
+
+// === HEART BURST ===
+function heartBurst(x, y) {
+  const angles = [0, 45, 90, 135, 180, 225, 270, 315];
+  angles.forEach(angle => {
+    const el = document.createElement('span');
+    el.className = 'heart-burst';
+    const rad = (angle - 90) * Math.PI / 180;
+    const dist = 60 + Math.random() * 80;
+    el.style.setProperty('--tx', Math.cos(rad) * dist + 'px');
+    el.style.setProperty('--ty', Math.sin(rad) * dist + 'px');
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.textContent = heartEmojis[Math.floor(Math.random() * 5)];
+    el.style.fontSize = (1 + Math.random() * 1) + 'rem';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1000);
+  });
+}
+
+// === SCREEN TRANSITIONS ===
+function nextScreen(from) {
+  const btn = event.currentTarget || document.querySelector('#screen' + from + ' .btn-yes');
+
+  // Get button position for heart burst
+  const rect = btn.getBoundingClientRect();
+  heartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
+
+  // Confetti!
+  shootConfetti(from === 3 ? 60 : 35);
+
+  const currentScreen = document.getElementById('screen' + from);
+  const card = currentScreen.querySelector('.card');
+  card.classList.add('fade-out');
+
+  setTimeout(() => {
+    currentScreen.classList.remove('active');
+    const next = document.getElementById('screen' + (from + 1));
+    next.classList.add('active');
+
+    if (from === 3) {
+      // Final screen - extra celebration
+      setTimeout(() => {
+        shootConfetti(50);
+        setTimeout(() => shootConfetti(40), 800);
+      }, 300);
+    }
+  }, 400);
+}
+</script>
+</body>
+</html>
